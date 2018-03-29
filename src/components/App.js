@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
@@ -12,13 +13,18 @@ class App extends React.Component {
     order: {}
   };
 
+  static propTypes = {
+    match: PropTypes.object
+  };
+
   componentDidMount() {
     const { params } = this.props.match;
-    // reinstate loacalstorage
+    // first reinstate our localStorage
     const localStorageRef = localStorage.getItem(params.storeId);
     if (localStorageRef) {
       this.setState({ order: JSON.parse(localStorageRef) });
     }
+
     this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: "fishes"
@@ -46,20 +52,20 @@ class App extends React.Component {
   };
 
   updateFish = (key, updatedFish) => {
-    // copy
+    // 1. Take a copy of the current state
     const fishes = { ...this.state.fishes };
-    // update state
+    // 2. Update that state
     fishes[key] = updatedFish;
-    // set state
+    // 3. Set that to state
     this.setState({ fishes });
   };
 
   deleteFish = key => {
-    // copy
+    // 1. take a copy of state
     const fishes = { ...this.state.fishes };
-    // update
+    // 2. update the state
     fishes[key] = null;
-    // update state
+    // 3.  update state
     this.setState({ fishes });
   };
 
@@ -68,20 +74,20 @@ class App extends React.Component {
   };
 
   addToOrder = key => {
-    // copy of state
+    // 1. take a copy of state
     const order = { ...this.state.order };
-    // add order
+    // 2. Either add to the order, or update the number in our order
     order[key] = order[key] + 1 || 1;
-    // update state
+    // 3. Call setState to update our state object
     this.setState({ order });
   };
 
   removeFromOrder = key => {
-    // copy of state
+    // 1. take a copy of state
     const order = { ...this.state.order };
-    // remove item from order
+    // 2. remove that itemf from order
     delete order[key];
-    // update state
+    // 3. Call setState to update our state object
     this.setState({ order });
   };
 
