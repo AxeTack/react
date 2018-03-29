@@ -1,6 +1,5 @@
 import React from "react";
 import { formatPrice } from "../helpers";
-import fishes from "../sample-fishes";
 
 class Fish extends React.Component {
   render() {

@@ -1,0 +1,16 @@
+import Rebase from "re-base";
+import firebase from "firebase";
+
+const firebaseApp = firebase.initializeApp({
+  apiKey: "AIzaSyCx_S_iLqGRRh9SLwoWL7LoSmxU17ovby0",
+  authDomain: "catch-of-the-day-9863b.firebaseapp.com",
+  databaseURL: "https://catch-of-the-day-9863b.firebaseio.com"
+});
+
+const base = Rebase.createClass(firebaseApp.database());
+
+// named export
+export { firebase };
+
+// default export
+export default base;
